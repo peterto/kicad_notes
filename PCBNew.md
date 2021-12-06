@@ -99,4 +99,97 @@ Status Bar
 - when you select an element, it will show informtion on the elemnet
 - right side: zoom, absolute coordinates of cursor, distance value
 - Permanent measurements
-- 
+
+Top menu
+---
+- File
+  - Archive footprints - allows you to package footprints to share
+  - Plot - allows you to export gerber files, so you can send to a manufacturer to produce your pcb
+  - Export to allow you to export in other formats
+  - Spectra session - 
+  - Rescue
+  - Revert to last back up - Kicad saves every 10 minutes, so you can go back to that.
+    - You can use undo or git as well
+    - You can change this is preferences and autosave
+  - Save copy as, if you want to save various layouts or versions of your layouts without overwriting your projects
+- Edit
+  - Global deletions
+    - delete items all in one go, can do multiple items
+    - cleanup tracks and vias
+    - move and swap layers
+      - you can swap contents of one layer to another
+    - change footprints: you can swap one footprint to another one (can choose from footprint library)
+    - set footprint filed sizes: allows you to change font size of text designations
+    - Edit all tracks and vias
+  - View
+    - Grid settings, only available here for custom user defined grids
+      - You can switch between 2 user defined grid settings with shortcuts
+    - Show ratsnest
+    - Every else on the left toolbar
+  - Setup menu (under file --> board setup)
+    - Design Rules
+      - This is where you take into account when you want your board manufactured
+      - Global
+        - Define width of tracks (across components) and vias (through layer)
+          - You can define min/maxes and add options in the Track/Via options
+      - Net
+        - Allow you to create classes of nets that have specific design attributes, for instance, that have nets have large amount of currents to give them larger vias/track widths
+    - Layers setup (under file --> board setup)
+      - Sets how many copper layers you want, by default it is 2
+      - There are some preconfig options to choose as well
+      - Text and drawing
+      - pads and mask properties
+      - differential pairs
+    - Place menu
+      - copies stuff from the right hand side
+    - Route menu and different pairs
+      - Gives you the ability connect pads together (single track)
+      - Differential pair
+        - + and - belong to same differential pair, you can connect both pairs to another same differential pair, for instance one J1 connector - pad 10- can connect to to J2 connector - pad 10+\
+          - if you have any high speed applications, you need to ensure both tracks have the same distance or approximately the same time, to do this you need to use the "tune differential pair length", try to go for the longest length, 
+          - you can tune a single track with "tune track length", you can do this with any track 
+        - Interactive Router Settings - used to route a track so that it doesn't violate the design rules
+          - Walkaround - will route a track around other symbols
+          - Shove - will try to push around a track
+      - Inspect Menu
+        - Nets - Shows all the nets
+        - Measure - Measures two points
+        - Design rules checker - Check layout against design rules
+          - Courtyard layers - defines permitter of a footprint, each footprint has a courtyard
+      - Tools Menu
+        - Load netlist - load from schema from eeschema
+          - To tell how to ID the footprints
+            - reference ID - R2
+            - timestamps - created when you created a footprint in eeschema, will add a timestamp in the .net file
+          - what would you do if it IDs if a footprint is changed
+            - normally when you make a eeschema change in footprint, you should choose change
+          - extra footprints
+            - delete the extra footprints not in the netlist
+          - dry run - it'll show you in text what it does 
+          - silent mode - no warnings 
+        - Update PCB from Schematic - You can annotate and update a netlist from an updated eeschema netlist and add a footprint to pcbnew
+        - Update footprints from library - to update all or certain footprints
+        - Set Layer Pair - Choose how vias will behave, this will help if you are using more than 2 layers on a board
+          - Through via - connects all copper layers
+          - Micro via - You can connect from two layers, this is the same as a blind via, but very very small, uses a laser
+          - Blind/Buried via - You can connect from two layers
+          - You can set the defaults of what layer connects to another via a via
+        - Prefences menu
+          - configures environment variables, you can check all the environment variables online
+          - manage footprint library
+            - kicad - locally, faster and offline
+            - github - from github, fetches from online
+          - Add 3d viewer library, need this to show up in the 3d viewer, pulls from github
+          - general settings
+          - display options
+            - you can choose higher quality graphic settings or faster rendering
+            - dots or lines for grids
+          - Legacy toolset
+          - Modern toolset (accelerated) most used, you can switch to if you can spot a function that doesn't work in kicad 5
+          - edit hotkeys
+          - save and load project files
+        - Help menu
+          - hot keys list
+          - documentation is local
+          - getting started is local, latest is on the kicard.org
+
