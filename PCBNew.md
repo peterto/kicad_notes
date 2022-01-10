@@ -193,3 +193,183 @@ Top menu
           - documentation is local
           - getting started is local, latest is on the kicard.org
 
+
+Design principles and concepts
+---
+
+Schematic symbols
+--
+- US standard - IEEE
+  - R_US symbol library
+- EU - IEC
+  - R_ symbol library
+- more EU symbols than US, doesn't matter what you use, but you need to use the same standard in your entire project
+
+
+FR4
+--
+- Fiberglass with epoxy resin, it's flame retardant
+  - light and strong
+- Other materials that can be used are HTG, Paper based with PF resins, aluminium, and various other TG rigid and flex boards
+
+
+Traces/Tracks
+--
+- Traces, are conductive paths made of copper, provides electricity between two pads
+- traces are protected from corrosion by thge solder mask and they take the solder masks color
+- If you are driving a large current through a component, you should use a larger width trace, > 20mA, 
+- keep traces to 0.3mm, you can have more traces closer together and reduce size of the PCB
+
+Pads/holes
+--
+- most prominent features of PCB
+- TH - throughhole, a physical hole from one side of pcb to the other, easier for beginners to use
+  - plated through hole (PTH) are the most common - default, a drill creates a hold and copper is filled in the hole that touches both sides of the PCB, vias are constructed in a similar fashion, but are much smaller, so you can't put a component pin in. 
+  - non-plated through only cover one side and do not fill the hole
+- SMD - Surface mount device, pads that exist only on single layer, smaller, so you can add more components and have a smaller pcb, can be populated by automated pick and place machines
+  - Uses pads in various shapes, round and rectangular pads are the most popular, but any size can be created
+
+Via
+--
+- similar to throughhole pads, but covered with solder mask instead of having the copper exposed
+- Types of vias
+  - buried - between 2 layers that aren't the top and bottom
+  - blind - between the top or bottom and another layer 
+  - through - from the top and bottom layers
+  - micro - same as a blind, but very small, uses lasers instead of a drill
+
+Annular ring
+--
+- Area of the pad that surrounds a via or throughhole
+- normally the ring width is right in the middle of the hole
+
+Solder mask
+--
+- copper can oxidize creating a pale green layer on the trace, solder mask protects the copper from oxidization
+- prevents solder bridges between pads or traces
+- Can be in a variety of colors
+
+Silkscreen
+--
+- text and artwork, most commonly it is white, but can be black or yellow
+
+Drill bit and drill hit
+--
+- drill bit - used to create holes, vias and cut outs, made of tungsten carbide from 0.3mm, 0.6mm and 1.2mm
+- very small holes usually micro vias, lasers are used
+- drill hit - the location on the PCB where the drill bit comes in contact with the PCB and creates a hole
+  
+Surface mounted devices
+--
+- If you want very many components, you want to use SMD and easy to manufacture in large quantities
+
+Gold Fingers
+--
+- Gold plated connectors placed on the edge of a PCB
+- useful for interconnecting one board to another, like a NES cartridge, can be used for thousands of times before they start to wear
+
+Panel
+--
+- A manufacturer can create multiple PCBs in one panel, this is similar to a sticker page that has lots of different sized stickers all on one page 
+- To remove a PCB there are defined breakaway routes that you can use to snap off
+
+Solder paste and paste stencil
+--
+- Soft and sticker material (at room temp), like normal solder to attach SMD components, normally uses a syringe for application on the board, use of tweezers to pick and attach the components
+- Board is placed in an oven or a heatgun is used to heat the solder paste to make it solid
+- Solder paste can come in a tub, where you can use a stencil to apply it like icing on a cake, used for large scale production, stencils are normally made of stainless steel
+- Part is placed in a reflow oven to bake the solder paste to harden it
+
+Pick and place
+--
+- Used to assemble and place components on a SMD board
+- Composed of repo of components, conveyor belt to bring in board, counters that optically recognize the board and an arm with suction to grab and place the component to the board 
+
+Schematic Design Workflow
+--
+1. Setup
+   1. Set grid size - from preferences menu --> Preferences --> Eeschema --> display options
+      1. 25 mils is good for the grid 
+   2. Page settings
+      1. File menu
+         1. Date, revision number and title, same as in PCBNew
+2. Symbols
+   1. Add symbols to sheet
+      1. Graphical representations of what you are designing, Add then all to the sheet.
+      2. Use the symbol chooser to place symbols on the sheet
+   2. Create symbols if needed
+3. Arrange, annotate, associate
+   1. Arracnge symbols in functional blocks
+      1. Move the symbols in place and prepare to wire them, keep wire short and have as few angles as possible
+   2. Annotate symbols
+      1. Annotate the symbols after they are arranged, symbols will have question marks and switch to numbers when they are annotated
+   3. Associate with footprints
+      1. 
+4. Wire
+   1. Signals
+      1. Wires connect symbols to each other. Each wire is connected to a pin and creates a net
+      2. Each wire from one symbol to one other symbol is called a net, nets have an automatically assigned name if not given a custom name
+   2. Power (PWR_FLAG)
+      1. GND and +5V are special symbols for power
+5. Nets
+   1. Customize net names - You do not need to name all nets, but important ones you should name, such as the power ones, GND or +5V one, typically they are used with wider traces
+      1. attenenate nets
+      2. data or address buses
+      3. 
+6. Electrical Rules Check
+   1. Run ERC - Good habit to regularly use the ERC, like regularly compiling your code
+   2. Fix errors
+   3. Repear ERC
+7. Comments
+   1. Add text information, you can use text labels for comments to give more information about your design and create functional groupings of components
+   2. Add graphics
+8. Netlist
+   1. Generate Netlist for PCBNew
+      1. Need to export this for PCBNew to read in, forces you to adhere to better designing and faster and more accurate iteration
+
+PCB Layout Workflow
+--
+1. Setup
+   1. Setup grid
+   2. Set design rules
+2. Outline and Constraints
+   1. Define size and shape
+   2. Define mounting holes
+   3. Define cutouts
+3. Footprints
+   1. Place components on board
+   2. Arrange user interface components
+   3. Arrange in functional blocks
+   4. Complete placement
+4. Route
+   1. Critical traces
+   2. Power
+   3. Everything else
+5. Copper fills
+   1. Create GND fill
+   2. Create V+ fill if necessary
+6. Silkscreen
+   1. Add text information
+   2. Add graphics
+7. Design rules check
+   1. Run DRC
+   2. Fix errors
+   3. Repeat DRC
+8. Manufacture
+   1. Create Gerber files
+   2. Verify Gerber files
+   3. Upload Gerber files to manufacturer
+9.  
+
+Shape and Size
+--
+- 
+
+Layers
+--
+- 
+ 
+Traces
+--
+- 
+
